@@ -9,7 +9,11 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Exploring UI widgets",
-    home: RowsAndColum(),
+    home: Scaffold(
+      appBar: AppBar(title: Text("Basic List View"),),
+      body: getListView(),
+    ),
+    //home: RowsAndColum(),
   ));
 }
 
@@ -25,4 +29,32 @@ class MyFlutterApp extends StatelessWidget {
             ),
             body: FirstScreen()));
   }
+}
+
+Widget getListView(){
+  var listView = ListView(
+    children: <Widget>[
+      ListTile(
+        leading: Icon(Icons.landscape),
+        title: Text("Landscape"),
+        subtitle: Text("Beautiful View !"),
+        trailing: Icon(Icons.wb_sunny),
+        onTap: () => debugPrint("Landscape tapped"),
+      ),
+      ListTile(
+        leading: Icon(Icons.computer),
+        title: Text("Landscape"),
+      ),ListTile(
+        leading: Icon(Icons.battery_alert),
+        title: Text("Landscape"),
+      ),ListTile(
+        leading: Icon(Icons.phone),
+        title: Text("Landscape"),
+      ),
+      Text("Yet another element in List"),
+      Container(color: Colors.red, height: 50.0,)
+
+    ],
+  );
+  return listView;
 }
