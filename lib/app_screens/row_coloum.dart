@@ -65,7 +65,8 @@ class RowsAndColum extends StatelessWidget{
                     )
                     ),
                   ],
-                )
+                ),
+                FlightImageAsset()
 
               ],
             )
@@ -105,4 +106,14 @@ class RowsAndColum extends StatelessWidget{
     );
   }
   
+}
+
+class FlightImageAsset extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    AssetImage assetImage = AssetImage('images/aarogya_setu_icon.png');
+    Image image = Image(image:assetImage, width: 200.0,height: 200.0);
+    return Container(child: image);
+  }
+
 }
