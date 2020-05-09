@@ -1,7 +1,15 @@
 import "package:flutter/material.dart";
 import 'app_screens/first_screen.dart';
+import 'app_screens/home.dart';
 
-void main() => runApp(new MyFlutterApp());
+//void main() => runApp(new MyFlutterApp());
+
+void main(){
+  runApp(MaterialApp(
+    title: "Exploring UI widgets",
+    home: Home(),
+  ));
+}
 
 class MyFlutterApp extends StatelessWidget{
   @override
