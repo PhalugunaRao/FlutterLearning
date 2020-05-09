@@ -4,7 +4,9 @@ void main(){
   runApp(
     MaterialApp(
       title: "My Flutter App",
-      home: Material(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Geethika App"),),
+        body : Material(
         color: Colors.lightBlueAccent,
         child: Center(child: Text(
             "Hello Geethika",
@@ -13,6 +15,7 @@ void main(){
         ) ,
         ),
       ),
+    )
     )
   );
 }
