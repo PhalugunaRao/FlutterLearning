@@ -1,103 +1,121 @@
-import "package:flutter/material.dart";
-import 'app_screens/first_screen.dart';
-import 'app_screens/home.dart';
-import 'app_screens/row_coloum.dart';
-
-//void main() => runApp(new MyFlutterApp());
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: "Exploring UI widgets",
-    home: Scaffold(
-      appBar: AppBar(title: Text("Basic List View"),),
-      body: getListViewData(),
-      floatingActionButton: FloatingActionButton(
-        onPressed :(){
-          debugPrint("FAB CLICK");
-        },
-        child: Icon(Icons.add),
-        tooltip: 'Add One More Item',
-      ),
-    ),
-    //home: RowsAndColum(),
+    title: 'Simple Interest Calculator App',
+    home: SIForm(),
   ));
 }
 
-void showSnackBar( BuildContext context, String  item){
-  var snackBar = SnackBar(
-    content: Text("you just tapped $item"),
-    action: SnackBarAction(
-      label: "UNDO",
-      onPressed: (){
-        debugPrint("on click undo");
-      },
-    ),
-  );
-  Scaffold.of(context).showSnackBar(snackBar);
-}
-
-class MyFlutterApp extends StatelessWidget {
+class SIForm extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "My Flutter App",
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text("Geethika App"),
-            ),
-            body: FirstScreen()));
+  State<StatefulWidget> createState() {
+    return SIFormState();
   }
 }
 
-Widget getListView(){
-  var listView = ListView(
-    children: <Widget>[
-      ListTile(
-        leading: Icon(Icons.landscape),
-        title: Text("Landscape"),
-        subtitle: Text("Beautiful View !"),
-        trailing: Icon(Icons.wb_sunny),
-        onTap: () => debugPrint("Landscape tapped"),
+class SIFormState extends State<SIForm> {
+  final _minmumPadding = 5.0;
+  var _currencies =['Rupess','Doller','Others'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+     // resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        title: Text("Simple Interest Calculator"),
       ),
-      ListTile(
-        leading: Icon(Icons.computer),
-        title: Text("Landscape"),
-      ),ListTile(
-        leading: Icon(Icons.battery_alert),
-        title: Text("Landscape"),
-      ),ListTile(
-        leading: Icon(Icons.phone),
-        title: Text("Landscape"),
+      body: Container(
+        margin: EdgeInsets.all(_minmumPadding * 2),
+        child: ListView(
+          children: <Widget>[
+            getImageAsset(),
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minmumPadding, bottom: _minmumPadding),
+                child: TextField(
+                  decoration: InputDecoration(
+                      labelText: 'Principle',
+                      hintText: 'Enter Principal  e.g  12000',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0))),
+                )),
+            Padding(
+                padding: EdgeInsets.only(
+                    top: _minmumPadding, bottom: _minmumPadding),
+                child:TextField(
+              decoration: InputDecoration(
+                  labelText: 'Rate of Interest',
+                  hintText: 'In percent',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            )),
+            Padding(
+              padding: EdgeInsets.only(top: _minmumPadding,bottom: _minmumPadding),
+                child: Row(
+              children: <Widget>[
+               Expanded(child: TextField(
+                  decoration: InputDecoration(
+                      labelText: 'Principle',
+                      hintText: 'Enter Principal  e.g  12000',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0))),
+                )),
+                Container(width: _minmumPadding*5),
+                Expanded(child:DropdownButton<String>(
+                  items: _currencies.map((String value){
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  value: 'Rupess',
+                  onChanged: (String newValueSelected){
+
+                  },
+
+                ))
+              ],
+            )),
+            Padding(
+              padding: EdgeInsets.only(top: _minmumPadding,bottom: _minmumPadding),
+                child:Row(
+              children: <Widget>[
+                Expanded(
+                  child: RaisedButton(
+                    child: Text('Calculate'),
+                    onPressed: (){
+
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: RaisedButton(
+                    child: Text('Reset'),
+                    onPressed: (){
+
+                    },
+                  ),
+                )
+              ],
+            )),
+            Padding(
+              padding: EdgeInsets.all(_minmumPadding*2),
+              child: Text('Todo Text'),
+            )
+
+          ],
+        ),
       ),
-      Text("Yet another element in List"),
-      Container(color: Colors.red, height: 50.0,)
+    );
+  }
 
-    ],
-  );
-  return listView;
+  Widget getImageAsset() {
+    AssetImage assetImage = AssetImage('images/aarogya_setu_icon.png');
+    Image image = Image(image: assetImage, width: 120.0, height: 120.0);
+    return Container(
+      child: image,
+      margin: EdgeInsets.all(_minmumPadding * 10),
+    );
+  }
 }
-
-List<String> getListElements(){
-  var items = List<String>.generate(300, (counter) => "Item $counter");
-  return items;
-}
-
-Widget getListViewData(){
-  var listItems =getListElements();
-  var listView =ListView.builder(
-      itemBuilder: (context,index){
-      return ListTile(
-        leading: Icon(Icons.arrow_right),
-        title: Text(listItems[index]),
-        onTap: (){
-          showSnackBar(context,listItems[index]);
-          debugPrint('${listItems[index]} was tapped');
-        },
-      );
-   }
-  );
-  return listView;
-}
-
